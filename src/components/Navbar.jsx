@@ -1,11 +1,11 @@
 import { Link, NavLink } from "react-router";
-import { useContext, useState } from "react";
-//import { AuthContext } from "../../context/AuthContext";
-import { Tooltip } from "react-tooltip";
+import { useContext } from "react";
 import logo from "../assets/logo.png";
+import { AuthContext } from "../contexts/AuthContest";
+
 
 const Navbar = () => {
-  const { user, logoutUser } = true;
+  const { user, logoutUser } = useContext(AuthContext);
 
   const navLinks = (
     <>
@@ -16,34 +16,15 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to="/allItems" className="hover:text-blue-500">
-          All Items
+          Lost & Found Items
         </NavLink>
       </li>
-      {user && (
-        <>
-          <li>
-            <NavLink to="/addItems" className="hover:text-blue-500">
-              Add Item
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/myItems" className="hover:text-blue-500">
-              My Items
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/allRecovered" className="hover:text-blue-500">
-              Recovered
-            </NavLink>
-          </li>
-        </>
-      )}
     </>
   );
 
   return (
     <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
-      {/* Navbar Start (Mobile) */}
+      {/* Navbar Start */}
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -70,9 +51,9 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost text-xl text-blue-600 font-bold">
-          <div className="flex justify-center items-center gap-1">
-            <img src={logo} className="h-12 w-12 rounded-[50%]" alt="" />
-            <h1 className="md:block hidden ">WhereIsIt</h1>
+          <div className="flex items-center gap-1">
+            <img src={logo} className="h-12 w-12 rounded-full" alt="logo" />
+            <span className="hidden md:block">WhereIsIt</span>
           </div>
         </Link>
       </div>
@@ -82,28 +63,44 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
 
-      {/* Navbar End (Profile/Logout/Login) */}
+      {/* Navbar End */}
       <div className="navbar-end">
         {user ? (
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full ring ring-blue-500 ring-offset-base-100 ring-offset-2">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"
+              data-tip={user.displayName}
+            >
+              <div className="w-10 rounded-full">
                 <img
+                  alt="User Profile"
                   src={user.photoURL || "/default-avatar.png"}
-                  alt="profile"
-                  data-tooltip-id="tooltip-profile"
                 />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
             >
               <li>
-                <span className="text-center font-medium">
+                <span className="justify-between font-medium">
                   {user.displayName}
                 </span>
               </li>
+              <div className="divider my-1"></div>
+              {/* Private Routes in Profile Dropdown */}
+              <li>
+                <Link to="/addItems">Add Lost & Found Item</Link>
+              </li>
+              <li>
+                <Link to="/allRecovered">All Recovered Items</Link>
+              </li>
+              <li>
+                <Link to="/myItems">Manage My Items</Link>
+              </li>
+              <div className="divider my-1"></div>
               <li>
                 <button
                   onClick={logoutUser}
