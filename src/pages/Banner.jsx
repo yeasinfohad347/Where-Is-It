@@ -18,17 +18,33 @@ const Banner = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     arrows: false,
+    responsive: [
+      {
+        breakpoint: 768, // tablets and smaller
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480, // phones
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <Slider {...settings}>
         {slides.map((image, index) => (
           <div key={index}>
             <img
               src={image}
               alt={`Slide ${index + 1}`}
-              className="w-full h-[700px] object-cover"
+              className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] object-cover"
             />
           </div>
         ))}
