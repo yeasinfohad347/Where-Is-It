@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import PostDetails from "../pages/PostDetails";
 import LostAndFoundItem from "../pages/LostAndFoundItem";
 import AddLostAndFoundItem from "../pages/AddLostAndFoundItem";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
         path: "postDetails/:id",
         loader: ({ params }) =>
           fetch(`http://localhost:3000/allPost/${params.id}`),
-        element: <PostDetails />,
+        element: <PrivateRoutes><PostDetails /></PrivateRoutes>,
       },
       {
         path:"allItems",
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path:'/addPost',
-        element:<AddLostAndFoundItem/>
+        element:<PrivateRoutes><AddLostAndFoundItem/></PrivateRoutes>
       }
     ],
   },

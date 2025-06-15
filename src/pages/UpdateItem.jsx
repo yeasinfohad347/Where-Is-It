@@ -1,25 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../contexts/AuthContest";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
-import Loading from "./Loading";
-import axios from "axios";
 
-const AddLostAndFoundItem = () => {
+const UpdateItem = () => {
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [item, setItem] = useState(null);
   const [date, setDate] = useState(new Date());
-  if (!user) {
-    return <Loading></Loading>;
-  }
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    fetch(`http://localhost:3000/allPost/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setItem(data);
+        setDate(new Date(data.date));
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to fetch item data.");
+      });
+  }, [id]);
+
+  const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
 
-    const newPost = {
+    const updatedPost = {
       type: form.postType.value,
       thumbnail: form.thumbnail.value,
       title: form.title.value,
@@ -32,34 +42,41 @@ const AddLostAndFoundItem = () => {
         email: user.email,
         image: user.photoURL,
       },
-      recovered: false,
     };
 
-    axios
-      .post("http://localhost:3000/allPost", newPost)
-      .then((res) => {
-        console.log(res.data);
-        toast.success("Post added successfully!");
+    fetch(`http://localhost:3000/allPost/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedPost),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Item updated successfully!");
         navigate("/");
       })
       .catch((err) => {
         console.error(err);
-        toast.error("Failed to add post.");
+        toast.error("Failed to update item.");
       });
   };
+
+  if (!item) return <p className="text-center mt-10">Loading...</p>;
 
   return (
     <div className="max-w-3xl mx-auto p-6">
       <div className="bg-white border border-blue-400 shadow-lg rounded-lg p-6">
         <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
-          Add Lost & Found Item
+          Update Item Post
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleUpdate} className="space-y-4">
           {/* Post Type */}
           <div>
             <label className="block font-medium">Post Type:</label>
             <select
               name="postType"
+              defaultValue={item.type}
               className="select select-bordered w-full border-blue-300"
               required
             >
@@ -74,6 +91,7 @@ const AddLostAndFoundItem = () => {
             <input
               name="thumbnail"
               type="text"
+              defaultValue={item.thumbnail}
               className="input input-bordered w-full border-blue-300"
               required
             />
@@ -85,6 +103,7 @@ const AddLostAndFoundItem = () => {
             <input
               name="title"
               type="text"
+              defaultValue={item.title}
               className="input input-bordered w-full border-blue-300"
               required
             />
@@ -95,6 +114,7 @@ const AddLostAndFoundItem = () => {
             <label className="block font-medium">Description:</label>
             <textarea
               name="description"
+              defaultValue={item.description}
               className="textarea textarea-bordered w-full border-blue-300"
               required
             ></textarea>
@@ -106,8 +126,8 @@ const AddLostAndFoundItem = () => {
             <input
               name="category"
               type="text"
+              defaultValue={item.category}
               className="input input-bordered w-full border-blue-300"
-              placeholder="e.g., pets, gadgets, documents"
               required
             />
           </div>
@@ -118,12 +138,13 @@ const AddLostAndFoundItem = () => {
             <input
               name="location"
               type="text"
+              defaultValue={item.location}
               className="input input-bordered w-full border-blue-300"
               required
             />
           </div>
 
-          {/* Date Picker */}
+          {/* Date */}
           <div>
             <label className="block font-medium">Date Lost or Found:</label>
             <DatePicker
@@ -133,14 +154,10 @@ const AddLostAndFoundItem = () => {
             />
           </div>
 
-          {/* Contact Info */}
+          {/* Contact (readonly) */}
           <div className="bg-gray-100 p-3 rounded border border-gray-300 shadow-inner">
-            <p>
-              <strong>Contact Name:</strong> {user.displayName}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
+            <p><strong>Name:</strong> {user.displayName}</p>
+            <p><strong>Email:</strong> {user.email}</p>
             <img
               src={user.photoURL}
               alt="User"
@@ -148,9 +165,9 @@ const AddLostAndFoundItem = () => {
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Update Button */}
           <button type="submit" className="btn btn-primary w-full shadow-md">
-            Add Post
+            Update Item
           </button>
         </form>
       </div>
@@ -158,4 +175,4 @@ const AddLostAndFoundItem = () => {
   );
 };
 
-export default AddLostAndFoundItem;
+export default UpdateItem;
