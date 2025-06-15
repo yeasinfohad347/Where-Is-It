@@ -2,10 +2,21 @@ import { Link, NavLink } from "react-router";
 import { useContext } from "react";
 import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthContest";
-
+import { div } from "motion/react-client";
 
 const Navbar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // console.log("sign out");
+      })
+      .catch((err) => {
+        const error = err.message;
+        console.log(error);
+      });
+  };
 
   const navLinks = (
     <>
@@ -64,60 +75,69 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End */}
-      <div className="navbar-end">
+      <div className="navbar-end ">
         {user ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"
-              data-tip={user.displayName}
-            >
-              <div className="w-10 rounded-full">
-                <img
-                  alt="User Profile"
-                  src={user.photoURL || "/default-avatar.png"}
-                />
+          <div className="flex justify-center items-center gap-1">
+            <div className="dropdown dropdown-end ">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"
+                data-tip={user.displayName}
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="User Profile"
+                    src={user.photoURL || "/default-avatar.png"}
+                  />
+                </div>
               </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <span className="justify-between font-medium">
+                    {user.displayName}
+                  </span>
+                </li>
+                <div className="divider my-1"></div>
+                {/* Private Routes in Profile Dropdown */}
+                <li>
+                  <Link to="/addItems">Add Lost & Found Item</Link>
+                </li>
+                <li>
+                  <Link to="/allRecovered">All Recovered Items</Link>
+                </li>
+                <li>
+                  <Link to="/myItems">Manage My Items</Link>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <span className="justify-between font-medium">
-                  {user.displayName}
-                </span>
-              </li>
-              <div className="divider my-1"></div>
-              {/* Private Routes in Profile Dropdown */}
-              <li>
-                <Link to="/addItems">Add Lost & Found Item</Link>
-              </li>
-              <li>
-                <Link to="/allRecovered">All Recovered Items</Link>
-              </li>
-              <li>
-                <Link to="/myItems">Manage My Items</Link>
-              </li>
-              <div className="divider my-1"></div>
-              <li>
-                <button
-                  onClick={logoutUser}
-                  className="text-red-500 font-semibold hover:bg-red-100"
-                >
-                  Logout
-                </button>
-              </li>
-            </ul>
+            <div className="">
+              <button
+                onClick={handleLogOut}
+                className="w-full px-2 py-1 text-white bg-red-500 rounded-md font-semibold hover:bg-red-600 transition duration-200"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         ) : (
-          <Link
-            to="/login"
-            className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
-          >
-            Login
-          </Link>
+          <div className="flex justify-center items-center gap-1">
+            <Link
+              to="/register"
+              className="btn btn-sm bg-blue-700 text-white hover:bg-blue-600"
+            >
+              Register
+            </Link>
+            <Link
+              to="/login"
+              className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+            >
+              Login
+            </Link>
+          </div>
         )}
       </div>
     </div>
