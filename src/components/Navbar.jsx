@@ -108,7 +108,7 @@ const Navbar = () => {
                   <div className="divider my-1"></div>
                   {/* Private Routes in Profile Dropdown */}
                   <li>
-                    <Link to="/addItems">Add Lost & Found Item</Link>
+                    <Link to="/addPost">Add Lost & Found Item</Link>
                   </li>
                   <li>
                     <Link to="/allRecovered">All Recovered Items</Link>
