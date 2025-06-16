@@ -114,7 +114,7 @@ const Navbar = () => {
                     <Link to="/allRecovered">All Recovered Items</Link>
                   </li>
                   <li>
-                    <Link to="/myItems">Manage My Items</Link>
+                    <Link to="/myPost">Manage My Items</Link>
                   </li>
                 </ul>
               </div>

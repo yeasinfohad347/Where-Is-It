@@ -8,6 +8,7 @@ import PostDetails from "../pages/PostDetails";
 import LostAndFoundItem from "../pages/LostAndFoundItem";
 import AddLostAndFoundItem from "../pages/AddLostAndFoundItem";
 import PrivateRoutes from "./PrivateRoutes";
+import MyItem from "../pages/MyItem";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path:'/addPost',
         element:<PrivateRoutes><AddLostAndFoundItem/></PrivateRoutes>
+      },
+      {
+        path:'/myPost',
+        element:<PrivateRoutes><MyItem/></PrivateRoutes>
       }
     ],
   },
