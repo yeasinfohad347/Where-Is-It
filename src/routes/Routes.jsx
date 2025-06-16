@@ -10,6 +10,8 @@ import AddLostAndFoundItem from "../pages/AddLostAndFoundItem";
 import PrivateRoutes from "./PrivateRoutes";
 import MyItem from "../pages/MyItem";
 import UpdateItem from "../pages/UpdateItem";
+import RecoveredItem from "../pages/RecoveredItem";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -51,8 +53,17 @@ const router = createBrowserRouter([
         path:'/update/:id',
         element:<PrivateRoutes><UpdateItem/></PrivateRoutes>
       }
+      ,
+      {
+        path:'/recovered',
+        element:<PrivateRoutes><RecoveredItem/></PrivateRoutes>
+      }
     ],
   },
+  {
+    path:'*',
+    element:<NotFound></NotFound>
+  }
 ]);
 
 export default router;

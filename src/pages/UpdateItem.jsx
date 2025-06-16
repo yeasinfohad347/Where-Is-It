@@ -56,8 +56,8 @@ const UpdateItem = () => {
       .then((res) => res.json())
       .then(() => {
         Swal.fire({
-          title: "Drag me!",
-          icon: "Item updated successfully",
+          title: "Item updated successfully",
+          icon: "success",
           draggable: true,
         });
 
