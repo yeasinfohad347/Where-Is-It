@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../contexts/AuthContest";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import Loading from "./Loading";
+import Swal from "sweetalert2";
 
 const UpdateItem = () => {
   const { id } = useParams();
@@ -53,7 +55,12 @@ const UpdateItem = () => {
     })
       .then((res) => res.json())
       .then(() => {
-        toast.success("Item updated successfully!");
+        Swal.fire({
+          title: "Drag me!",
+          icon: "Item updated successfully",
+          draggable: true,
+        });
+
         navigate("/");
       })
       .catch((err) => {
@@ -62,10 +69,11 @@ const UpdateItem = () => {
       });
   };
 
-  if (!item) return <p className="text-center mt-10">Loading...</p>;
+  if (!item) return <Loading />;
 
   return (
     <div className="max-w-3xl mx-auto p-6">
+      <ToastContainer />
       <div className="bg-white border border-blue-400 shadow-lg rounded-lg p-6">
         <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
           Update Item Post
@@ -156,8 +164,12 @@ const UpdateItem = () => {
 
           {/* Contact (readonly) */}
           <div className="bg-gray-100 p-3 rounded border border-gray-300 shadow-inner">
-            <p><strong>Name:</strong> {user.displayName}</p>
-            <p><strong>Email:</strong> {user.email}</p>
+            <p>
+              <strong>Name:</strong> {user.displayName}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
             <img
               src={user.photoURL}
               alt="User"

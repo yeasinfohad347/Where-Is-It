@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContest";
 import { Link } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 
 const MyItem = () => {
   const [myItems, setMyItems] = useState([]);
@@ -17,26 +18,39 @@ const MyItem = () => {
   }, [user]);
 
   const handleDelete = (id) => {
-    if (confirm("Are you sure you want to delete this item?")) {
-      fetch(`http://localhost:3000/allPost/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount > 0) {
-            toast.success("Item deleted successfully!");
-            setMyItems(myItems.filter((item) => item._id !== id));
-          }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/allPost/${id}`, {
+          method: "DELETE",
         })
-        .catch(() => toast.error("Failed to delete item"));
-    }
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+              setMyItems(myItems.filter((item) => item._id !== id));
+            }
+          })
+          .catch(() => toast.error("Failed to delete item"));
+      }
+    });
   };
 
   return (
     <div className="p-4 max-w-5xl mx-auto">
-      <ToastContainer />
       <h2 className="text-2xl font-bold mb-4">Manage My Items</h2>
-
+      <ToastContainer />
       {myItems.length === 0 ? (
         <p className="text-gray-600 text-lg">No items found. Add some posts!</p>
       ) : (
@@ -59,7 +73,9 @@ const MyItem = () => {
                   <td>{item.location}</td>
                   <td>
                     {item.recovered ? (
-                      <span className="text-green-600 font-semibold">Recovered</span>
+                      <span className="text-green-600 font-semibold">
+                        Recovered
+                      </span>
                     ) : (
                       <span className="text-red-500">Not Recovered</span>
                     )}
