@@ -20,7 +20,7 @@ const AddLostAndFoundItem = () => {
     const form = e.target;
 
     const newPost = {
-      type: form.postType.value,
+      postType: form.postType.value,
       thumbnail: form.thumbnail.value,
       title: form.title.value,
       description: form.description.value,
