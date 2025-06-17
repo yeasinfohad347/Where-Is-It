@@ -13,7 +13,9 @@ const RecoveredItem = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get("http://localhost:3000/recovered")
+        .get("http://localhost:3000/recovered",{
+          withCredentials:true
+        })
         .then((res) => {
           setRecoveredItems(res.data);
           setLoading(false);

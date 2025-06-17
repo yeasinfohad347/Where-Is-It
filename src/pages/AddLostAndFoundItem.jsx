@@ -36,7 +36,9 @@ const AddLostAndFoundItem = () => {
     };
 
     axios
-      .post("http://localhost:3000/allPost", newPost)
+      .post("http://localhost:3000/allPost", newPost,{
+        withCredentials:true
+      })
       .then((res) => {
         console.log(res.data);
         toast.success("Post added successfully!");

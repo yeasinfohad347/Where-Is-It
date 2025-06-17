@@ -10,7 +10,9 @@ const MyItem = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/myPost?email=${user.email}`)
+      fetch(`http://localhost:3000/myPost?email=${user.email}`,{
+        credentials:'include'
+      })
         .then((res) => res.json())
         .then((data) => setMyItems(data))
         .catch((err) => console.error("Fetch error:", err));

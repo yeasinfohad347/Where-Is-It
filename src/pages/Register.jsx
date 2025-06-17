@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { AuthContext } from "../contexts/AuthContest";
 import Swal from "sweetalert2";
+
 //import { Helmet } from "react-helmet-async";
 
 const Register = () => {
