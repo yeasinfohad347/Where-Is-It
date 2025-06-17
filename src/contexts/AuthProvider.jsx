@@ -1,88 +1,94 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut,  updateProfile } from 'firebase/auth';
-import { auth } from '../Firebase.init';
-import { AuthContext } from './AuthContest';
-import axios from 'axios';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../Firebase.init";
+import { AuthContext } from "./AuthContest";
+import axios from "axios";
 
+const provider = new GoogleAuthProvider();
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [stories, setStories] = useState([]);
 
-const provider=new GoogleAuthProvider();
-const AuthProvider = ({children}) => {
+  const creatUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-   
-    const [user,setUser]=useState(null);
-    const [loading,setLoading]=useState(true);
+  const updateUser = (data) => {
+    return updateProfile(auth.currentUser, data);
+  };
 
-    const creatUser=(email,password)=>{
-        setLoading(true);
-        return createUserWithEmailAndPassword(auth,email,password);
-    }
+  const loginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-    const updateUser=(data)=>{
-        return updateProfile(auth.currentUser,data);
-    }
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
-    const loginUser=(email,password)=>{
-        setLoading(true);
-        return signInWithEmailAndPassword(auth,email,password);
-    }
+  const signInWithGoogle = () => {
+    return signInWithPopup(auth, provider);
+  };
 
-    const logOut=()=>{
-        setLoading(true);
-        return signOut(auth);
-    }
+  const forgotPass = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
 
-    const signInWithGoogle=()=>{
-        return signInWithPopup(auth,provider)
-    }
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+      if (currentUser?.email) {
+        const userData = { email: currentUser.email };
+        axios
+          .post("http://localhost:3000/jwt", userData, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, []);
 
-    const forgotPass=(email)=>{
-        return sendPasswordResetEmail(auth, email)
-    }
+  const authData = {
+    creatUser,
+    user,
+    logOut,
+    loginUser,
+    setLoading,
+    loading,
+    updateUser,
+    signInWithGoogle,
+    forgotPass,
+    stories,
+    setStories,
+  };
 
-    useEffect(()=>{
-        const unSubscribe=onAuthStateChanged(auth,(currentUser)=>{
-            setUser(currentUser);
-            setLoading(false);
-            if(currentUser?.email){
-                const userData={email:currentUser.email}
-                axios.post("http://localhost:3000/jwt",userData,{
-                    withCredentials:true
-                })
-                .then(res=>{
-                    console.log(res.data);
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
-            }
-        }
-        
-        )
-        return ()=>{
-            unSubscribe();
-        }
-    },[])
-
-    const authData={
-        creatUser,
-        user,
-        logOut,
-        loginUser,
-        setLoading,
-        loading,updateUser,
-        signInWithGoogle,
-         forgotPass
-
-    }
-    
-    return (
-        <div>
-            <AuthContext value={authData}>
-                {children}
-            </AuthContext>
-        </div>
-    );
+  return (
+    <div>
+      <AuthContext value={authData}>{children}</AuthContext>
+    </div>
+  );
 };
 
 export default AuthProvider;

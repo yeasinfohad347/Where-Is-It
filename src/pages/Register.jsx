@@ -4,8 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { AuthContext } from "../contexts/AuthContest";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
-//import { Helmet } from "react-helmet-async";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -79,9 +79,9 @@ const Register = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="card bg-base-100 w-full max-w-sm mx-auto mt-20 shadow-2xl"
     >
-      {/* <Helmet>
+      <Helmet>
         <title>Register</title>
-      </Helmet> */}
+      </Helmet>
       <div className="card-body">
         <p className="text-2xl font-extrabold mx-auto">Create Account</p>
         <form onSubmit={handleSubmit}>

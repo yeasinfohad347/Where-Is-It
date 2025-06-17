@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
 import { AuthContext } from "../contexts/AuthContest";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -52,9 +53,9 @@ const Login = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="card bg-base-100 w-full max-w-sm shadow-xl mx-auto mt-20 rounded-2xl border border-gray-100"
     >
-      {/* <Helmet>
+      <Helmet>
         <title>Login | WhereIsIt</title>
-      </Helmet> */}
+      </Helmet>
 
       <div className="card-body">
         <h2 className="text-2xl font-bold text-center text-primary">

@@ -6,6 +6,7 @@ import RecentItem from "./RecentItem";
 import Loading from "./Loading";
 import FAQ from "./FAQ";
 import SuccessPage from "./SuccessPage";
+import { Helmet } from "react-helmet-async";
 
 const promise = fetch("http://localhost:3000/allPost").then((res) =>
   res.json()
@@ -16,9 +17,9 @@ const Home = () => {
     <>
     
       <div className="">
-        {/* <Helmet>
+        <Helmet>
           <title>Home</title>
-        </Helmet> */}
+        </Helmet>
         <Banner />
       </div>
       <main>
