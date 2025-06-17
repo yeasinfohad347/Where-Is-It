@@ -1,5 +1,6 @@
 import React, { use } from "react";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
+import { motion } from "framer-motion";
 
 const RecentItem = ({ promise }) => {
   const allItems = use(promise);
@@ -11,15 +12,24 @@ const RecentItem = ({ promise }) => {
   return (
     <section className="px-4 py-10 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8 text-blue-700">
+        <motion.h2
+          className="text-3xl font-bold text-center mb-8 text-blue-700"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           Latest Find & Lost Items
-        </h2>
+        </motion.h2>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {recentItems.map((item) => (
-            <div
+          {recentItems.map((item, index) => (
+            <motion.div
               key={item._id}
               className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between h-full"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-4">
@@ -59,19 +69,25 @@ const RecentItem = ({ promise }) => {
                   View Details
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* See All Button */}
-        <div className="mt-8 text-center">
+        <motion.div
+          className="mt-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           <Link
             to="/allItems"
             className="inline-block bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-700 transition"
           >
             See All
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -8,7 +8,7 @@ const HomeLayouts = () => {
     return (
         <div>
             <Navbar/>
-            <div className='min-h-screen'>
+            <div className='min-h-screen bg-blue-50 '>
                 <Outlet></Outlet>
             </div>
             <Footer/>

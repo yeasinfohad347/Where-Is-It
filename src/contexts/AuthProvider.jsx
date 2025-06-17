@@ -54,14 +54,14 @@ const AuthProvider = ({ children }) => {
       if (currentUser?.email) {
         const userData = { email: currentUser.email };
         axios
-          .post("http://localhost:3000/jwt", userData, {
+          .post("https://where-is-it-server-topaz.vercel.app/jwt", userData, {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res.data);
+            
           })
           .catch((err) => {
-            console.log(err);
+           
           });
       }
     });

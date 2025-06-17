@@ -6,6 +6,7 @@ import { AuthContext } from "../contexts/AuthContest";
 import Loading from "./Loading";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const PostDetails = () => {
   const item = useLoaderData();
@@ -13,6 +14,7 @@ const PostDetails = () => {
   const [recoveredDate, setRecoveredDate] = useState(new Date());
   const [isRecovered, setIsRecovered] = useState(item.recovered || false);
   const [postItem, setPostItem] = useState(item);
+  console.log(item);
 
   if (!item || !user) return <Loading />;
 
@@ -33,15 +35,15 @@ const PostDetails = () => {
     };
 
     axios
-      .post("http://localhost:3000/recoveredItems", recoveryData)
+      .post("https://where-is-it-server-topaz.vercel.app/recoveredItems", recoveryData)
       .then(() => {
-        return axios.patch(`http://localhost:3000/allPost/${item._id}`, {
+        console.log(item._id);
+         axios.patch(`https://where-is-it-server-topaz.vercel.app/allPost/${item._id}`, {
           recovered: true,
           recoveredLocation,
           name: user.displayName,
-        });
-      })
-      .then(() => {
+        })
+        .then(() => {
         setIsRecovered(true);
         setPostItem({
           ...postItem,
@@ -52,6 +54,12 @@ const PostDetails = () => {
         toast.success("Item marked as recovered!");
         document.getElementById("my_modal_1").close();
       })
+       .catch((error) => {
+        console.error(error);
+        toast.error("Something went wrong while submitting!");
+      });
+      })
+      
       .catch((error) => {
         console.error(error);
         toast.error("Something went wrong while submitting!");
@@ -60,22 +68,25 @@ const PostDetails = () => {
 
   return (
     <div className="p-4 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2">{item.title}</h1>
-      <p className="mb-2">{item.description}</p>
-      <p>
-        <strong>Status:</strong>{" "}
+      <Helmet>
+        <title>Post Details</title>
+      </Helmet>
+      <h1 className="text-2xl font-bold mb-2 dark:text-black">{item.title}</h1>
+      <p className="mb-2 dark:text-black">{item.description}</p>
+      <p className="dark:text-black">
+        <strong className="dark:text-black">Status:</strong>{" "}
         {isRecovered ? "✅ Recovered" : "❌ Not Recovered"}
       </p>
 
       <div className="flex items-center  flex-wrap gap-4">
         <div>
           {isRecovered ? (
-            <span>
+            <span className="dark:text-black">
               <strong>Recovered info:</strong> Recovered by {postItem.name} from{" "}
               {postItem.recoveredLocation}
             </span>
           ) : (
-            <span>
+            <span className="dark:text-black">
               <strong>Type:</strong> {item.type}
             </span>
           )}

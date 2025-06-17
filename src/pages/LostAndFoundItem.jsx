@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const LostAndFoundItem = () => {
@@ -6,7 +7,7 @@ const LostAndFoundItem = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/allPost")
+    fetch("https://where-is-it-server-topaz.vercel.app/allPost")
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching posts:", error));
@@ -20,6 +21,9 @@ const LostAndFoundItem = () => {
 
   return (
     <div className="min-h-screen bg-blue-50 py-10 px-4">
+      <Helmet>
+        <title>All Item</title>
+      </Helmet>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center text-blue-700 mb-6">
           What have you lost?
@@ -27,13 +31,30 @@ const LostAndFoundItem = () => {
 
         {/* Search Box */}
         <div className="mb-8 text-center">
-          <input
-            type="text"
-            placeholder="Search by title or location..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-blue-300 rounded-full shadow focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          />
+          <div className="relative w-full max-w-md mx-auto">
+            <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="Search by title or location..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-full shadow-md border border-blue-300 bg-white dark:bg-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+            />
+          </div>
         </div>
 
         {/* Grid of Cards */}

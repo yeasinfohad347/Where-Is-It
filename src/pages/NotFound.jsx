@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router";
 import { MdErrorOutline } from "react-icons/md";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center text-center px-4">
+      <Helmet>
+        <tille>Error</tille>
+      </Helmet>
       <MdErrorOutline className="text-7xl text-red-500 mb-4" />
       <h1 className="text-5xl font-bold text-blue-700 mb-2">404 - Page Not Found</h1>
       <p className="text-gray-600 text-lg mb-6">

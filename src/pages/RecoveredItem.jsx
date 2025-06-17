@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../contexts/AuthContest";
 import { MdViewList, MdViewModule } from "react-icons/md";
+import { Helmet } from "react-helmet-async";
 
 const RecoveredItem = () => {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const RecoveredItem = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get("http://localhost:3000/recovered",{
+        .get("https://where-is-it-server-topaz.vercel.app/recovered",{
           withCredentials:true
         })
         .then((res) => {
@@ -21,7 +22,7 @@ const RecoveredItem = () => {
           setLoading(false);
         })
         .catch((err) => {
-          console.log(err);
+          
         });
     }
   }, [user]);
@@ -47,6 +48,9 @@ const RecoveredItem = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      <Helmet>
+        <title>Recovered Item</title>
+      </Helmet>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-3xl font-bold text-blue-700">Recovered Items</h2>
         <div className="flex gap-5">

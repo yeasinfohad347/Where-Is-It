@@ -2,7 +2,7 @@ import React from "react";
 
 const FAQ = () => {
   return (
-    <section className="bg-gray-50 dark:bg-gray-100 dark:text-gray-800 py-10">
+    <section className="bg-gray-50 dark:bg-gray-100  py-10">
       <div className="max-w-4xl mx-auto px-4">
         <p className="text-sm font-medium tracking-wider text-center uppercase text-blue-600">
           How it works

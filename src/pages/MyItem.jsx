@@ -3,20 +3,24 @@ import { AuthContext } from "../contexts/AuthContest";
 import { Link } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const MyItem = () => {
   const [myItems, setMyItems] = useState([]);
   const { user } = useContext(AuthContext);
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
+    setLoading(true)
     if (user?.email) {
-      fetch(`http://localhost:3000/myPost?email=${user.email}`,{
+      fetch(`https://where-is-it-server-topaz.vercel.app/myPost?email=${user.email}`,{
         credentials:'include'
       })
         .then((res) => res.json())
         .then((data) => setMyItems(data))
         .catch((err) => console.error("Fetch error:", err));
     }
+    setLoading(false)
   }, [user]);
 
   const handleDelete = (id) => {
@@ -30,7 +34,7 @@ const MyItem = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/allPost/${id}`, {
+        fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -51,6 +55,9 @@ const MyItem = () => {
 
   return (
     <div className="p-4 max-w-5xl mx-auto">
+      <Helmet>
+        <title>MyItem</title>
+      </Helmet>
       <h2 className="text-2xl font-bold mb-4">Manage My Items</h2>
       <ToastContainer />
       {myItems.length === 0 ? (
@@ -68,7 +75,7 @@ const MyItem = () => {
               </tr>
             </thead>
             <tbody>
-              {myItems.map((item) => (
+              {!loading && myItems?.map((item) => (
                 <tr key={item._id}>
                   <td>{item.title}</td>
                   <td>{item.postType}</td>

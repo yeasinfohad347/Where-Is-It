@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { AuthContext } from "../contexts/AuthContest";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const SuccessPage = () => {
   const [stories, setStories] = useState([]);
@@ -11,7 +11,7 @@ const SuccessPage = () => {
 
   // Fetch stories
   useEffect(() => {
-    fetch("http://localhost:3000/success-stories")
+    fetch("https://where-is-it-server-topaz.vercel.app/success-stories")
       .then((res) => res.json())
       .then((data) => setStories(data))
       .catch((err) => console.error(err));
@@ -31,7 +31,7 @@ const SuccessPage = () => {
       userEmail: user?.email || "N/A",
     };
 
-    fetch("http://localhost:3000/success-stories", {
+    fetch("https://where-is-it-server-topaz.vercel.app/success-stories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newStory),
@@ -39,7 +39,9 @@ const SuccessPage = () => {
       .then(() => {
         toast.success("Thank you for sharing your story!");
         // Fetch updated stories
-        return fetch("http://localhost:3000/success-stories");
+        return fetch(
+          "https://where-is-it-server-topaz.vercel.app/success-stories"
+        );
       })
       .then((res) => res.json())
       .then((data) => {
@@ -70,6 +72,7 @@ const SuccessPage = () => {
 
   return (
     <section className="my-16 px-6 max-w-7xl mx-auto text-center">
+      <ToastContainer />
       <h2 className="text-4xl font-bold mb-4 text-green-600">
         🎉 Success Stories
       </h2>
@@ -105,7 +108,7 @@ const SuccessPage = () => {
 
       {/* Submit Form */}
       <div className="mt-16 text-left max-w-4xl mx-auto">
-        <h3 className="text-2xl font-bold mb-4 text-center text-green-700">
+        <h3 className="text-2xl font-bold mb-4 text-center text-green-700 dark:text-green-400">
           ✍️ Share Your Success Story
         </h3>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -113,32 +116,32 @@ const SuccessPage = () => {
             type="text"
             placeholder="Item Name"
             name="itemName"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             required
           />
           <input
             type="text"
             placeholder="Found Location"
             name="location"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             required
           />
           <input
             type="date"
             name="date"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white"
             required
           />
           <textarea
             placeholder="Your Story"
             name="story"
-            className="w-full p-3 border rounded-xl"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             rows={4}
             required
           ></textarea>
           <button
             type="submit"
-            className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700"
+            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl"
           >
             Submit Story
           </button>
