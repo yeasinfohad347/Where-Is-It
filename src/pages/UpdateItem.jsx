@@ -20,7 +20,15 @@ const UpdateItem = () => {
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
-        setDate(new Date(data.date));
+
+        // Safe date parsing
+        const parsedDate = new Date(data.date);
+        if (!isNaN(parsedDate)) {
+          setDate(parsedDate);
+        } else {
+          console.warn("Invalid date received:", data.date);
+          setDate(new Date()); // fallback to today
+        }
       })
       .catch((err) => {
         console.error(err);
