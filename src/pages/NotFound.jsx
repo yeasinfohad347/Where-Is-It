@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center text-center px-4">
       <Helmet>
-        <tille>Error</tille>
+        <title>Error</title>
       </Helmet>
       <MdErrorOutline className="text-7xl text-red-500 mb-4" />
       <h1 className="text-5xl font-bold text-blue-700 mb-2">404 - Page Not Found</h1>

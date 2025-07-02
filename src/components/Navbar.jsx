@@ -47,68 +47,103 @@ const Navbar = () => {
           Lost & Found Items
         </NavLink>
       </li>
+
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to="/addPost"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
+                  : "btn btn-sm btn-ghost font-medium"
+              }
+            >
+              Add Lost & Found Item
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/recovered"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
+                  : "btn btn-sm btn-ghost font-medium"
+              }
+            >
+              All Recovered Items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/myPost"
+              className={({ isActive }) =>
+                isActive
+                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
+                  : "btn btn-sm btn-ghost font-medium"
+              }
+            >
+              Manage My Items
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
   return (
-    <div className="w-11/12 mx-auto py-2">
-      <div className="navbar flex items-center justify-between">
-        {/* Navbar Start */}
-        <div className="navbar-start flex items-center gap-4">
-          {/* Logo + Title */}
-          <NavLink to="/" className="flex items-center gap-2">
-            <img src={logo} alt="logo" className="h-12 w-12 rounded-full" />
-            <span className="text-2xl font-bold text-blue-600 hidden md:block">
-              WhereIsIt
-            </span>
-          </NavLink>
+    <div className="sticky top-0 z-50 bg-base-100 w-full shadow">
+      <div className="w-11/12 mx-auto py-2">
+        <div className="navbar flex items-center justify-between">
+          {/* Navbar Start */}
+          <div className="navbar-start flex items-center gap-4">
+            <NavLink to="/" className="flex items-center gap-2">
+              <img src={logo} alt="logo" className="h-12 w-12 rounded-full" />
+              <span className="text-2xl font-bold text-blue-600 hidden md:block">
+                WhereIsIt
+              </span>
+            </NavLink>
 
-          {/* Dropdown on Mobile */}
-          <div className="dropdown lg:hidden">
-            <label tabIndex={0} className="btn btn-ghost">
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+            {/* Dropdown (mobile) */}
+            <div className="dropdown lg:hidden">
+              <label tabIndex={0} className="btn btn-ghost">
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h10m-10 6h16"
+                  />
+                </svg>
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h10m-10 6h16"
-                />
-              </svg>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
-            >
-              {navLinks}
-            </ul>
+                {navLinks}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        {/* Navbar Center (desktop only) */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
-        </div>
+          {/* Navbar Center */}
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1 gap-2">{navLinks}</ul>
+          </div>
 
-        {/* Navbar End */}
-        <div className="navbar-end flex items-center gap-3">
-          {/* Theme Toggle */}
-          <Toggole handleToggle={handleToggle} />
-
-          {/* Auth Area */}
-          {user ? (
-            <div className="flex items-center gap-3">
-              {/* User Avatar Dropdown */}
-              <div className="dropdown dropdown-end">
+          {/* Navbar End */}
+          <div className="navbar-end flex items-center gap-3">
+            <Toggole handleToggle={handleToggle} />
+            {user ? (
+              <>
+                {/* Avatar */}
                 <div
-                  tabIndex={0}
-                  role="button"
-                  className="btn btn-ghost btn-circle avatar tooltip tooltip-bottom"
+                  className="avatar tooltip tooltip-bottom"
                   data-tip={user.displayName}
                 >
                   <div className="w-10 rounded-full ring ring-blue-400 ring-offset-base-100 ring-offset-2">
@@ -118,85 +153,39 @@ const Navbar = () => {
                     />
                   </div>
                 </div>
-                <ul
-                  tabIndex={0}
-                  className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-56 z-50"
+                {/* Logout */}
+                <button
+                  onClick={handleLogOut}
+                  className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
                 >
-                  <li className="font-semibold text-center text-blue-600 mb-1">
-                    {user.displayName}
-                  </li>
-                  <div className="divider my-1" />
-                  <li>
-                    <NavLink
-                      to="/addPost"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn btn-sm bg-blue-600 text-white font-semibold"
-                          : "btn btn-sm btn-ghost font-medium"
-                      }
-                    >
-                      Add Lost & Found Item
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/recovered"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn btn-sm bg-blue-600 text-white font-semibold"
-                          : "btn btn-sm btn-ghost font-medium"
-                      }
-                    >
-                      All Recovered Items
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/myPost"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "btn btn-sm bg-blue-600 text-white font-semibold"
-                          : "btn btn-sm btn-ghost font-medium"
-                      }
-                    >
-                      Manage My Items
-                    </NavLink>
-                  </li>
-                </ul>
+                  Logout
+                </button>
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "btn btn-sm bg-blue-700 text-white font-semibold"
+                      : "btn btn-sm bg-blue-700 text-white hover:bg-blue-600"
+                  }
+                >
+                  Register
+                </NavLink>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "btn btn-sm bg-blue-500 text-white font-semibold"
+                      : "btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+                  }
+                >
+                  Login
+                </NavLink>
               </div>
-
-              {/* Logout Button */}
-              <button
-                onClick={handleLogOut}
-                className="btn btn-sm bg-red-500 text-white hover:bg-red-600 transition duration-200"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <NavLink
-                to="/register"
-                className={({ isActive }) =>
-                  isActive
-                    ? "btn btn-sm bg-blue-700 text-white font-semibold"
-                    : "btn btn-sm bg-blue-700 text-white hover:bg-blue-600"
-                }
-              >
-                Register
-              </NavLink>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "btn btn-sm bg-blue-500 text-white font-semibold"
-                    : "btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
-                }
-              >
-                Login
-              </NavLink>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -38,10 +38,7 @@ const SuccessPage = () => {
     })
       .then(() => {
         toast.success("Thank you for sharing your story!");
-        // Fetch updated stories
-        return fetch(
-          "https://where-is-it-server-topaz.vercel.app/success-stories"
-        );
+        return fetch("https://where-is-it-server-topaz.vercel.app/success-stories");
       })
       .then((res) => res.json())
       .then((data) => {
@@ -71,33 +68,40 @@ const SuccessPage = () => {
   };
 
   return (
-    <section className="my-16 px-6 max-w-7xl mx-auto text-center">
+    <section className="my-16 px-6 max-w-7xl mx-auto">
       <ToastContainer />
-      <h2 className="text-4xl font-bold mb-4 text-green-600">
-        🎉 Success Stories
-      </h2>
-      <p className="text-gray-600 mb-10">
-        Real stories of people who found their lost items!
-      </p>
 
+      {/* Section Header */}
+      <div className="text-center mb-10">
+        <h2 className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
+          🎉 Success Stories
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300">
+          Real stories from people who found their lost items!
+        </p>
+      </div>
+
+      {/* Stories Slider */}
       {stories.length === 0 ? (
-        <p className="text-gray-500 text-lg">No stories shared yet.</p>
+        <p className="text-gray-500 text-lg text-center">No stories shared yet.</p>
       ) : (
         <Slider {...settings} className="!py-6">
           {stories.map((story, index) => (
-            <div key={index} className="px-2">
-              <div className="bg-white m-6 p-6 rounded-2xl shadow-md h-full flex flex-col justify-start items-center text-left min-h-[300px]">
-                <h3 className="text-xl font-bold text-green-700 text-center mb-2">
+            <div key={index} className="px-3">
+              <div className="relative bg-white dark:bg-[#1447E6] border-l-4 border-green-500 p-6 rounded-xl shadow-md h-full min-h-[300px] transition hover:shadow-lg">
+                <h3 className="text-xl font-bold text-green-700 dark:text-green-400 text-center mb-2">
                   {story.itemName}
                 </h3>
-                <p className="text-sm text-gray-600 mb-1">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                   <strong>Location:</strong> {story.foundLocation}
                 </p>
-                <p className="text-sm text-gray-600 mb-1">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">
                   <strong>Date:</strong> {story.foundDate}
                 </p>
-                <p className="text-gray-700 italic mt-3">“{story.story}”</p>
-                <p className="text-xs text-right text-gray-500 mt-4 w-full">
+                <p className="text-gray-700 dark:text-gray-200 italic mt-3">
+                  “{story.story}”
+                </p>
+                <p className="text-xs text-right text-gray-500 dark:text-gray-400 mt-4">
                   – {story.userName}
                 </p>
               </div>
@@ -107,44 +111,46 @@ const SuccessPage = () => {
       )}
 
       {/* Submit Form */}
-      <div className="mt-16 text-left max-w-4xl mx-auto">
-        <h3 className="text-2xl font-bold mb-4 text-center text-green-700 dark:text-green-400">
+      <div className="mt-20 max-w-4xl mx-auto">
+        <h3 className="text-2xl font-bold mb-6 text-center text-green-700 dark:text-green-400">
           ✍️ Share Your Success Story
         </h3>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="text"
-            placeholder="Item Name"
             name="itemName"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            placeholder="Item Name"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white  text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             required
           />
           <input
             type="text"
-            placeholder="Found Location"
             name="location"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            placeholder="Found Location"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white  text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             required
           />
           <input
             type="date"
             name="date"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white"
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white  text-black dark:text-white"
             required
           />
           <textarea
-            placeholder="Your Story"
             name="story"
-            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+            placeholder="Your Story"
             rows={4}
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-white  text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             required
           ></textarea>
-          <button
-            type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl"
-          >
-            Submit Story
-          </button>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl transition"
+            >
+              Submit Story
+            </button>
+          </div>
         </form>
       </div>
     </section>
