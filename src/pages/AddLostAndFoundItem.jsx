@@ -1,9 +1,8 @@
-// Same imports
 import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { AuthContext } from "../contexts/AuthContest";
-import { useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContest"; 
+import { useNavigate } from "react-router"; 
 import Loading from "./Loading";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
@@ -37,9 +36,7 @@ const AddLostAndFoundItem = () => {
     };
 
     axios
-      .post("https://where-is-it-server-topaz.vercel.app/allPost", newPost, {
-        withCredentials: true,
-      })
+      .post("https://where-is-it-server-topaz.vercel.app/allPost", newPost)
       .then(() => {
         Swal.fire({
           icon: "success",
@@ -60,25 +57,23 @@ const AddLostAndFoundItem = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 ">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <Helmet>
         <title>Add Lost Item</title>
       </Helmet>
 
-      <div className="bg-white border border-blue-200 shadow-xl rounded-xl p-8 transition duration-300">
-        <h2 className="text-4xl font-extrabold text-center mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-sky-600">
+      <div className="bg-background border border-secondary shadow-xl rounded-xl p-8">
+        <h2 className="text-4xl font-extrabold text-center mb-8 text-primary">
           Add Lost & Found Item
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Post Type */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Post Type:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Post Type:</label>
             <select
               name="postType"
-              className="select w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="select w-full border border-secondary rounded-md"
               required
             >
               <option value="Lost">Lost</option>
@@ -88,14 +83,12 @@ const AddLostAndFoundItem = () => {
 
           {/* Thumbnail */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Thumbnail URL:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Thumbnail URL:</label>
             <input
               name="thumbnail"
               type="text"
               placeholder="https://image-url.com/item.jpg"
-              className="input w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="input w-full border border-secondary rounded-md"
               required
             />
           </div>
@@ -106,75 +99,63 @@ const AddLostAndFoundItem = () => {
             <input
               name="title"
               type="text"
-              className="input w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="input w-full border border-secondary rounded-md"
               required
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Description:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Description:</label>
             <textarea
               name="description"
               rows={4}
-              className="textarea w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="textarea w-full border border-secondary rounded-md"
               required
             ></textarea>
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Category:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Category:</label>
             <input
               name="category"
               type="text"
-              className="input w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
               placeholder="e.g., pets, gadgets, documents"
+              className="input w-full border border-secondary rounded-md"
               required
             />
           </div>
 
           {/* Location */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Location:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Location:</label>
             <input
               name="location"
               type="text"
-              className="input w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="input w-full border border-secondary rounded-md"
               required
             />
           </div>
 
           {/* Date Picker */}
           <div>
-            <label className="block text-lg font-semibold mb-1">
-              Date Lost or Found:
-            </label>
+            <label className="block text-lg font-semibold mb-1">Date Lost or Found:</label>
             <DatePicker
               selected={date}
               onChange={(d) => setDate(d)}
-              className="input w-full border border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 rounded-md"
+              className="input w-full border border-secondary rounded-md"
             />
           </div>
 
           {/* Contact Info */}
-          <div className="bg-gray-50 p-4 rounded-md border border-gray-200 shadow-sm">
-            <p>
-              <strong>Contact Name:</strong> {user.displayName}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
+          <div className="bg-background p-4 rounded-md border border-secondary shadow-sm">
+            <p><strong>Contact Name:</strong> {user.displayName}</p>
+            <p><strong>Email:</strong> {user.email}</p>
             <img
               src={user.photoURL}
               alt="User"
-              className="w-14 h-14 rounded-full mt-3 border border-blue-300 shadow-sm"
+              className="w-14 h-14 rounded-full mt-3 border border-primary shadow-sm"
             />
           </div>
 
@@ -182,7 +163,7 @@ const AddLostAndFoundItem = () => {
           <div>
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 text-white text-lg font-semibold hover:scale-105 transition duration-300 shadow-lg"
+              className="w-full py-3 rounded-lg bg-primary hover:bg-accent text-white text-lg font-semibold transition"
             >
               Submit Post
             </button>

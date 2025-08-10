@@ -99,7 +99,7 @@ const SuccessPage = () => {
         <Slider {...settings} className="!py-6">
           {stories.map((story, index) => (
             <div key={story._id || index} className="px-3">
-              <div className="relative bg-base-100 border-l-4 border-accent p-6 rounded-xl shadow-md h-full min-h-[300px] transition hover:shadow-lg">
+              <div className="relative bg-secondary border-l-4 border-accent p-6 rounded-xl shadow-md h-full min-h-[300px] transition hover:shadow-lg">
                 <h3 className="text-xl font-bold text-accent text-center mb-2">
                   {story.itemName}
                 </h3>
@@ -110,7 +110,7 @@ const SuccessPage = () => {
                   <strong>Date:</strong> {story.foundDate}
                 </p>
                 <p className="text-text italic mt-3">“{story.story}”</p>
-                <p className="text-secondary text-xs text-right mt-4">
+                <p className=" text-xs text-right mt-4">
                   – {story.userName}
                 </p>
               </div>

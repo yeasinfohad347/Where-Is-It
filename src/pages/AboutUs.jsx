@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <section className="bg-gray-50 py-16 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-12">
+    <section className="bg-base-100 py-16 px-6 min-h-screen">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start gap-12">
         {/* Left: Image */}
         <div className="md:w-1/2">
           <img
@@ -15,25 +15,25 @@ const AboutUs = () => {
 
         {/* Right: Text Content */}
         <div className="md:w-1/2 space-y-6">
-          <h2 className="text-4xl font-bold text-gray-800">About Us</h2>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            Welcome to WhereIsIt, your trusted platform to find and recover lost items quickly and easily. 
+          <h2 className="text-4xl font-bold text-primary">About Us</h2>
+          <p className="leading-relaxed text-lg">
+            Welcome to <span className="font-semibold text-secondary">WhereIsIt</span>, your trusted platform to find and recover lost items quickly and easily. 
             We understand how stressful losing something important can be, so we built a community-driven solution that connects people and helps reunite belongings with their owners.
           </p>
-          <p className="text-gray-600 leading-relaxed text-lg">
+          <p className="leading-relaxed text-lg">
             Our mission is to make the lost-and-found process smooth, transparent, and efficient for everyone. Whether you've lost a wallet, phone, or any other valuable item, WhereIsIt is here to help.
           </p>
 
-          <div className="flex gap-6 mt-4">
+          <div className="flex flex-col sm:flex-row gap-6 mt-4">
             <div>
-              <h3 className="text-xl font-semibold text-indigo-600">Our Vision</h3>
-              <p className="text-gray-600 mt-1">
+              <h3 className="text-xl font-semibold text-primary">Our Vision</h3>
+              <p className="mt-1">
                 To build a world where lost items are quickly found and returned, making communities safer and happier.
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-indigo-600">Our Values</h3>
-              <p className="text-gray-600 mt-1">
+              <h3 className="text-xl font-semibold text-primary">Our Values</h3>
+              <p className="mt-1">
                 Trust, Transparency, Community, and Innovation.
               </p>
             </div>

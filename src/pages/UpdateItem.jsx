@@ -20,20 +20,12 @@ const UpdateItem = () => {
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
-
-        // Safe date parsing
         const parsedDate = new Date(data.date);
         if (!isNaN(parsedDate)) {
           setDate(parsedDate);
-        } else {
-          console.warn("Invalid date received:", data.date);
-          setDate(new Date()); // fallback to today
         }
       })
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to fetch item data.");
-      });
+      .catch(() => toast.error("Failed to fetch item data."));
   }, [id]);
 
   const handleUpdate = (e) => {
@@ -54,12 +46,11 @@ const UpdateItem = () => {
         image: user.photoURL,
       },
     };
+    
 
     fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedPost),
     })
       .then((res) => res.json())
@@ -67,15 +58,10 @@ const UpdateItem = () => {
         Swal.fire({
           title: "Item updated successfully",
           icon: "success",
-          draggable: true,
         });
-
         navigate("/");
       })
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to update item.");
-      });
+      .catch(() => toast.error("Failed to update item."));
   };
 
   if (!item) return <Loading />;
@@ -83,21 +69,21 @@ const UpdateItem = () => {
   return (
     <div className="max-w-3xl mx-auto p-6">
       <Helmet>
-        <title>UpdateItem</title>
+        <title>Update Item</title>
       </Helmet>
       <ToastContainer />
-      <div className="bg-white border border-blue-400 shadow-lg rounded-lg p-6">
-        <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
+      <div className="rounded-lg p-6 border border-secondary shadow-lg bg-base-100">
+        <h2 className="text-3xl font-bold text-center mb-6 text-primary">
           Update Item Post
         </h2>
-        <form onSubmit={handleUpdate} className="space-y-4">
+        <form onSubmit={handleUpdate} className="space-y-4 text-base-content">
           {/* Post Type */}
           <div>
             <label className="block font-medium">Post Type:</label>
             <select
               name="postType"
               defaultValue={item.type}
-              className="select select-bordered w-full border-blue-300"
+              className="select select-bordered w-full border-primary"
               required
             >
               <option value="Lost">Lost</option>
@@ -112,7 +98,7 @@ const UpdateItem = () => {
               name="thumbnail"
               type="text"
               defaultValue={item.thumbnail}
-              className="input input-bordered w-full border-blue-300"
+              className="input input-bordered w-full border-primary"
               required
             />
           </div>
@@ -124,7 +110,7 @@ const UpdateItem = () => {
               name="title"
               type="text"
               defaultValue={item.title}
-              className="input input-bordered w-full border-blue-300"
+              className="input input-bordered w-full border-primary"
               required
             />
           </div>
@@ -135,7 +121,7 @@ const UpdateItem = () => {
             <textarea
               name="description"
               defaultValue={item.description}
-              className="textarea textarea-bordered w-full border-blue-300"
+              className="textarea textarea-bordered w-full border-primary"
               required
             ></textarea>
           </div>
@@ -147,7 +133,7 @@ const UpdateItem = () => {
               name="category"
               type="text"
               defaultValue={item.category}
-              className="input input-bordered w-full border-blue-300"
+              className="input input-bordered w-full border-primary"
               required
             />
           </div>
@@ -159,7 +145,7 @@ const UpdateItem = () => {
               name="location"
               type="text"
               defaultValue={item.location}
-              className="input input-bordered w-full border-blue-300"
+              className="input input-bordered w-full border-primary"
               required
             />
           </div>
@@ -170,12 +156,12 @@ const UpdateItem = () => {
             <DatePicker
               selected={date}
               onChange={(d) => setDate(d)}
-              className="input input-bordered w-full border-blue-300"
+              className="input input-bordered w-full border-primary"
             />
           </div>
 
-          {/* Contact (readonly) */}
-          <div className="bg-gray-100 p-3 rounded border border-gray-300 shadow-inner">
+          {/* Contact */}
+          <div className="p-3 rounded shadow-inner bg-secondary text-base-content">
             <p>
               <strong>Name:</strong> {user.displayName}
             </p>
@@ -185,12 +171,12 @@ const UpdateItem = () => {
             <img
               src={user.photoURL}
               alt="User"
-              className="w-12 h-12 rounded-full mt-2 border border-blue-400"
+              className="w-12 h-12 rounded-full mt-2 border border-primary"
             />
           </div>
 
           {/* Update Button */}
-          <button type="submit" className="btn btn-primary w-full shadow-md">
+          <button type="submit" className="btn w-full bg-primary text-white">
             Update Item
           </button>
         </form>

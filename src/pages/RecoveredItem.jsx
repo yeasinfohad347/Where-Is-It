@@ -18,7 +18,6 @@ const RecoveredItem = () => {
           withCredentials:true
         })
         .then((res) => {
-          console.log(res.data);
           setRecoveredItems(res.data);
           setLoading(false);
         })

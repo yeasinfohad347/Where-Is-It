@@ -58,7 +58,7 @@ const SideBar = ({ onClose }) => {
       </nav>
 
       <div className="mt-8">
-        <Link to="/" className="btn btn-secondary w-full" onClick={onClose}>
+        <Link to="/" className="btn  w-full" onClick={onClose}>
           ← Back Home
         </Link>
       </div>

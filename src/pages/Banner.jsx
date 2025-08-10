@@ -44,7 +44,7 @@ const Banner = () => {
             <img
               src={image}
               alt={`Slide ${index + 1}`}
-              className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[650px] object-cover"
+              className="w-full h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] xl:h-[700px] object-cover"
             />
           </div>
         ))}
