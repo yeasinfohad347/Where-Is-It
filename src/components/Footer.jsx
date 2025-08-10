@@ -3,78 +3,78 @@ import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="px-4 divide-y dark:bg-gray-100 dark:text-gray-800 mt-20">
-      <div className="flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
+    <footer className="px-4 divide-y bg-base-100 text-text mt-20">
+      <div className="flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0 max-w-7xl">
         <div className="lg:w-1/3">
           <a
             rel="noopener noreferrer"
             href="/"
-            className="flex justify-center space-x-3 lg:justify-start"
+            className="flex justify-center space-x-3 lg:justify-start items-center"
           >
-            <div className="flex items-center justify-center w-12 h-12 rounded-full dark:bg-violet-600">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary">
               <img className="rounded-full" src={logo} alt="WhereIsIt Logo" />
             </div>
-            <span className="self-center text-2xl font-semibold">
+            <span className="self-center text-2xl font-semibold text-primary">
               WhereIsIt
             </span>
           </a>
         </div>
+
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
           <div className="space-y-3">
-            <h3 className="tracking-wide uppercase dark:text-gray-900">
-              Product
-            </h3>
-            <ul className="space-y-1">
+            <h3 className="tracking-wide uppercase text-primary">Product</h3>
+            <ul className="space-y-1 ">
               <li>
-                <a href="#">Features</a>
+                <a href="#" className="hover:text-primary transition">Features</a>
               </li>
               <li>
-                <a href="#">Success Stories</a>
+                <a href="#" className="hover:text-primary transition">Success Stories</a>
               </li>
               <li>
-                <a href="#">Lost & Found</a>
+                <a href="#" className="hover:text-primary transition">Lost & Found</a>
               </li>
               <li>
-                <a href="#">FAQ</a>
+                <a href="#" className="hover:text-primary transition">FAQ</a>
               </li>
             </ul>
           </div>
+
           <div className="space-y-3">
-            <h3 className="tracking-wide uppercase dark:text-gray-900">
-              Company
-            </h3>
-            <ul className="space-y-1">
+            <h3 className="tracking-wide uppercase text-primary">Company</h3>
+            <ul className="space-y-1 ">
               <li>
-                <a href="#">Privacy</a>
+                <a href="#" className="hover:text-primary transition">Privacy</a>
               </li>
               <li>
-                <a href="#">Terms of Service</a>
+                <a href="#" className="hover:text-primary transition">Terms of Service</a>
               </li>
             </ul>
           </div>
+
           <div className="space-y-3">
-            <h3 className="uppercase dark:text-gray-900">Developers</h3>
-            <ul className="space-y-1">
+            <h3 className="uppercase text-primary">Developers</h3>
+            <ul className="space-y-1 ">
               <li>
-                <a href="#">API</a>
+                <a href="#" className="hover:text-primary transition">API</a>
               </li>
               <li>
-                <a href="#">Docs</a>
+                <a href="#" className="hover:text-primary transition">Docs</a>
               </li>
               <li>
-                <a href="#">GitHub</a>
+                <a href="#" className="hover:text-primary transition">GitHub</a>
               </li>
             </ul>
           </div>
+
           <div className="space-y-3">
-            <div className="uppercase dark:text-gray-900">Social media</div>
-            <div className="flex justify-start space-x-3">
+            <div className="uppercase text-primary">Social media</div>
+            <div className="flex justify-start space-x-3 text-secondary">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Facebook"
-                className="flex items-center p-1"
+                className="flex items-center p-1 hover:text-primary transition"
               >
                 {/* Facebook SVG */}
                 <svg
@@ -92,7 +92,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Twitter"
-                className="flex items-center p-1"
+                className="flex items-center p-1 hover:text-primary transition"
               >
                 {/* Twitter SVG */}
                 <svg
@@ -109,7 +109,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Instagram"
-                className="flex items-center p-1"
+                className="flex items-center p-1 hover:text-primary transition"
               >
                 {/* Instagram SVG */}
                 <svg
@@ -125,7 +125,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="py-6 text-sm text-center dark:text-gray-600">
+
+      <div className="py-6 text-sm text-center ">
         © {new Date().getFullYear()} WhereIsIt. All rights reserved.
       </div>
     </footer>

@@ -1,5 +1,4 @@
-import { createBrowserRouter } from "react-router";
-
+import { createBrowserRouter } from "react-router"; 
 import HomeLayouts from "../layouts/HomeLayouts";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -12,61 +11,84 @@ import MyItem from "../pages/MyItem";
 import UpdateItem from "../pages/UpdateItem";
 import RecoveredItem from "../pages/RecoveredItem";
 import NotFound from "../pages/NotFound";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
+import StatsPage from "../pages/dashboard/StatsPage";
+import AboutUs from "../pages/AboutUs";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayouts />,
-    errorElement:<NotFound/>,
+    errorElement: <NotFound />,
     children: [
       {
-        path: "/",
         index: true,
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
+      },
+      {
+        path: "aboutUs",
+        element: <AboutUs/>
       },
       {
         path: "postDetails/:id",
         loader: ({ params }) =>
-          fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${params.id}`,{
-            credentials:'include'
+          fetch(`http://localhost:3000/allPost/${params.id}`, {
+            credentials: "include",
           }),
-        element: <PrivateRoutes><PostDetails /></PrivateRoutes>,
+        element: <PostDetails />,
       },
       {
-        path:"allItems",
-        element:<LostAndFoundItem/>
+        path: "allItems",
+        element: <LostAndFoundItem />,
       },
       {
-        path:'/addPost',
-        element:<PrivateRoutes><AddLostAndFoundItem/></PrivateRoutes>
+        path: "update/:id",
+        element: (
+          <PrivateRoutes>
+            <UpdateItem />
+          </PrivateRoutes>
+        ),
       },
-      {
-        path:'/myPost',
-        element:<PrivateRoutes><MyItem/></PrivateRoutes>
-      },
-      {
-        path:'/update/:id',
-        element:<PrivateRoutes><UpdateItem/></PrivateRoutes>
-      }
-      ,
-      {
-        path:'/recovered',
-        element:<PrivateRoutes><RecoveredItem/></PrivateRoutes>
-      }
     ],
   },
   {
-    path:'*',
-    element:<NotFound></NotFound>
-  }
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        index:true,
+        element: <StatsPage />,
+      },
+      {
+        path: "addPost",
+        element: <AddLostAndFoundItem />,
+      },
+      {
+        path: "myPost",
+        element: <MyItem />,
+      },
+      {
+        path: "recovered",
+        element: <RecoveredItem />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
 
 export default router;

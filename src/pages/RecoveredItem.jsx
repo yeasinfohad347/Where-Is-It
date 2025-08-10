@@ -14,10 +14,11 @@ const RecoveredItem = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get("https://where-is-it-server-topaz.vercel.app/recovered",{
+        .get("http://localhost:3000/recovered",{
           withCredentials:true
         })
         .then((res) => {
+          console.log(res.data);
           setRecoveredItems(res.data);
           setLoading(false);
         })
@@ -25,6 +26,7 @@ const RecoveredItem = () => {
           
         });
     }
+    
   }, [user]);
 
   const toggleLayout1 = () => {
@@ -84,6 +86,7 @@ const RecoveredItem = () => {
             </thead>
             <tbody>
               {recoveredItems.map((item, index) => (
+
                 <tr key={item._id}>
                   <td>{index + 1}</td>
                   <td>{item.title}</td>
@@ -104,7 +107,7 @@ const RecoveredItem = () => {
               className="bg-white border shadow-md rounded-lg p-4"
             >
               <img
-                src={item.thumbnail}
+                src={item.recoveredBy.image}
                 alt={item.title}
                 className="w-full h-40 object-cover rounded mb-3"
               />

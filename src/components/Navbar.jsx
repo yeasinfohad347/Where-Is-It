@@ -28,7 +28,7 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "btn btn-sm bg-blue-600 text-white font-semibold"
+              ? "btn btn-sm btn-primary text-white font-semibold"
               : "btn btn-sm btn-ghost font-medium"
           }
         >
@@ -40,11 +40,23 @@ const Navbar = () => {
           to="/allItems"
           className={({ isActive }) =>
             isActive
-              ? "btn btn-sm bg-blue-600 text-white font-semibold"
+              ? "btn btn-sm btn-primary text-white font-semibold"
               : "btn btn-sm btn-ghost font-medium"
           }
         >
           Lost & Found Items
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/aboutUs"
+          className={({ isActive }) =>
+            isActive
+              ? "btn btn-sm btn-primary text-white font-semibold"
+              : "btn btn-sm btn-ghost font-medium"
+          }
+        >
+          About Us
         </NavLink>
       </li>
 
@@ -52,38 +64,14 @@ const Navbar = () => {
         <>
           <li>
             <NavLink
-              to="/addPost"
+              to="/dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
+                  ? "btn btn-sm btn-primary text-white font-semibold"
                   : "btn btn-sm btn-ghost font-medium"
               }
             >
-              Add Lost & Found Item
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/recovered"
-              className={({ isActive }) =>
-                isActive
-                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
-                  : "btn btn-sm btn-ghost font-medium"
-              }
-            >
-              All Recovered Items
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/myPost"
-              className={({ isActive }) =>
-                isActive
-                  ? "btn btn-sm bg-blue-600 text-white font-semibold"
-                  : "btn btn-sm btn-ghost font-medium"
-              }
-            >
-              Manage My Items
+              Dashboard
             </NavLink>
           </li>
         </>
@@ -99,7 +87,7 @@ const Navbar = () => {
           <div className="navbar-start flex items-center gap-4">
             <NavLink to="/" className="flex items-center gap-2">
               <img src={logo} alt="logo" className="h-12 w-12 rounded-full" />
-              <span className="text-2xl font-bold text-blue-600 hidden md:block">
+              <span className="text-2xl font-bold text-primary hidden md:block">
                 WhereIsIt
               </span>
             </NavLink>
@@ -146,7 +134,7 @@ const Navbar = () => {
                   className="avatar tooltip tooltip-bottom"
                   data-tip={user.displayName}
                 >
-                  <div className="w-10 rounded-full ring ring-blue-400 ring-offset-base-100 ring-offset-2">
+                  <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img
                       src={user.photoURL || "/default-avatar.png"}
                       alt="User"
@@ -156,7 +144,7 @@ const Navbar = () => {
                 {/* Logout */}
                 <button
                   onClick={handleLogOut}
-                  className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
+                  className="btn btn-sm btn-error text-white hover:bg-error/90"
                 >
                   Logout
                 </button>
@@ -167,8 +155,8 @@ const Navbar = () => {
                   to="/register"
                   className={({ isActive }) =>
                     isActive
-                      ? "btn btn-sm bg-blue-700 text-white font-semibold"
-                      : "btn btn-sm bg-blue-700 text-white hover:bg-blue-600"
+                      ? "btn btn-sm btn-primary text-white font-semibold"
+                      : "btn btn-sm btn-primary btn-outline hover:bg-primary hover:text-white"
                   }
                 >
                   Register
@@ -177,8 +165,8 @@ const Navbar = () => {
                   to="/login"
                   className={({ isActive }) =>
                     isActive
-                      ? "btn btn-sm bg-blue-500 text-white font-semibold"
-                      : "btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+                      ? "btn btn-sm btn-secondary text-white font-semibold"
+                      : "btn btn-sm btn-secondary btn-outline hover:bg-secondary hover:text-white"
                   }
                 >
                   Login

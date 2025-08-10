@@ -7,7 +7,7 @@ const LostAndFoundItem = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://where-is-it-server-topaz.vercel.app/allPost")
+    fetch("http://localhost:3000/allPost")
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching posts:", error));

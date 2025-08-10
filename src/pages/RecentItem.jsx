@@ -10,10 +10,10 @@ const RecentItem = ({ promise }) => {
     .slice(0, 6);
 
   return (
-    <section className="px-4 py-16 bg-gray-50">
+    <section className="px-4 py-16 bg-base-100 text-text">
       <div className="max-w-7xl mx-auto">
         <motion.h2
-          className="text-4xl font-extrabold text-center text-blue-700 mb-12"
+          className="text-4xl font-extrabold text-center text-primary mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -25,29 +25,29 @@ const RecentItem = ({ promise }) => {
           {recentItems.map((item, index) => (
             <motion.div
               key={item._id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col"
+              className="bg-base-100 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="p-6 flex flex-col flex-grow">
+              <div className="p-6 flex flex-col flex-grow bg-secondary">
                 <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-semibold text-gray-800 w-3/4 leading-snug">
+                  <h3 className="text-xl font-semibold text-text w-3/4 leading-snug">
                     {item.title}
                   </h3>
                   <span
-                    className={`text-xs font-semibold px-3 py-1 rounded-full ${
+                    className={`badge ${
                       item.postType === "Lost"
-                        ? "bg-red-100 text-red-600"
-                        : "bg-green-100 text-green-600"
+                        ? "badge-error"
+                        : "badge-success"
                     }`}
                   >
                     {item.postType}
                   </span>
                 </div>
 
-                <div className="flex-grow space-y-2 text-sm text-gray-600">
+                <div className="flex-grow space-y-2 text-sm ">
                   <p>
                     <strong>Category:</strong> {item.category}
                   </p>
@@ -57,17 +57,16 @@ const RecentItem = ({ promise }) => {
                   <p>
                     <strong>Location:</strong> {item.location}
                   </p>
-                  <p className="line-clamp-2">
-                    {item.description}
-                  </p>
+                  <p className="line-clamp-2">{item.description}</p>
                 </div>
 
                 <Link
                   to={`/postDetails/${item._id}`}
-                  className="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white text-center font-medium py-2 px-4 rounded-md transition"
+                  className="mt-6 btn btn-primary text-white w-full text-center"
                 >
                   View Details
                 </Link>
+               
               </div>
             </motion.div>
           ))}
@@ -81,10 +80,7 @@ const RecentItem = ({ promise }) => {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Link
-            to="/allItems"
-            className="inline-block bg-gray-900 text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-gray-700 transition"
-          >
+          <Link to="/allItems" className="btn btn-accent text-white">
             See All Items
           </Link>
         </motion.div>
