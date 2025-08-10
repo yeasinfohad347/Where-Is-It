@@ -61,7 +61,7 @@ const FAQ = () => {
             >
               <input type="radio" name="faq-accordion" defaultChecked={defaultChecked} />
               <div className="collapse-title font-semibold text-primary">{question}</div>
-              <div className="collapse-content text-sm text-black">{answer}</div>
+              <div className="collapse-content text-sm ">{answer}</div>
             </div>
           ))}
         </div>

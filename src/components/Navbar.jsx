@@ -165,8 +165,8 @@ const Navbar = () => {
                   to="/login"
                   className={({ isActive }) =>
                     isActive
-                      ? "btn btn-sm btn-secondary text-white font-semibold"
-                      : "btn btn-sm btn-secondary btn-outline hover:bg-secondary hover:text-white"
+                      ? "btn btn-sm btn-primary text-white font-semibold"
+                      : "btn btn-sm btn-primary btn-outline hover:bg-secondary hover:text-white"
                   }
                 >
                   Login

@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { FaEllipsisV } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
-import { NavLink } from "react-router";
-
+import { NavLink } from "react-router";  // react-router-dom instead of react-router
+import { AuthContext } from "../../contexts/AuthContest";
 
 const Topbar = ({ theme, toggleTheme, onToggleSidebar }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const { user } = useContext(AuthContext); // useContext, not use()
 
   // Close dropdown if clicked outside
   useEffect(() => {
@@ -51,10 +52,7 @@ const Topbar = ({ theme, toggleTheme, onToggleSidebar }) => {
 
       <div className="flex items-center gap-4">
         {/* Dropdown menu: visible md and up */}
-        <div
-          className="relative hidden md:block"
-          ref={dropdownRef}
-        >
+        <div className="relative hidden md:block" ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
             aria-expanded={dropdownOpen}
@@ -108,9 +106,20 @@ const Topbar = ({ theme, toggleTheme, onToggleSidebar }) => {
         </button>
 
         {/* Profile button */}
-        <button className="btn btn-ghost btn-circle" aria-label="Profile">
-          <CgProfile size={22} />
-        </button>
+        {user ? (
+          <div
+            className="avatar tooltip tooltip-bottom cursor-pointer"
+            data-tip={user.displayName || "User"}
+          >
+            <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={user.photoURL || "/default-avatar.png"} alt="User" />
+            </div>
+          </div>
+        ) : (
+          <button className="btn btn-ghost btn-circle" aria-label="Profile">
+            <CgProfile size={22} />
+          </button>
+        )}
       </div>
     </header>
   );
