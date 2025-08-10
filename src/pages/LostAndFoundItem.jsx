@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
 
 const LostAndFoundItem = () => {
   const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("newest");
+  const [filterType, setFilterType] = useState("All");
 
   useEffect(() => {
-    fetch("https://where-is-it-server-topaz.vercel.app/allPost") 
+    fetch("https://where-is-it-server-topaz.vercel.app/allPost")
       .then((res) => res.json())
       .then((data) => setItems(data))
       .catch((error) => console.error("Error fetching posts:", error));
   }, []);
 
-  const filteredItems = items.filter((item) =>
-    `${item.title} ${item.location}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+  const filteredItems = items
+    .filter((item) =>
+      `${item.title} ${item.location}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    )
+    .filter((item) =>
+      filterType === "All" ? true : item.postType === filterType
+    )
+    .sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
+    });
 
   return (
-    <div className="min-h-screen bg-base-100  py-10 px-4">
+    <div className="min-h-screen bg-base-100 py-10 px-4">
       <Helmet>
         <title>All Items</title>
       </Helmet>
@@ -30,9 +41,13 @@ const LostAndFoundItem = () => {
           What have you lost?
         </h2>
 
-        {/* Search Box */}
-        <div className="mb-8 text-center">
-          <div className="relative w-full max-w-md mx-auto">
+        {/* Controls: Search in middle, Sort + Filter at end */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+          {/* Empty div for left spacing on md+ */}
+          <div className="hidden md:block md:w-1/3"></div>
+
+          {/* Search Box in center */}
+          <div className="relative w-full md:w-1/3">
             <span className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <svg
                 className="h-5 w-5 text-primary"
@@ -53,8 +68,30 @@ const LostAndFoundItem = () => {
               placeholder="Search by title or location..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-full shadow-md border border-primary bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+              className="w-full pl-10 pr-4 py-2 rounded-full shadow-md border border-primary bg-base-100 text-text focus:outline-none focus:ring-2 focus:ring-primary transition-all"
             />
+          </div>
+
+          {/* Sort + Filter at right */}
+          <div className="flex gap-4 w-full md:w-1/3 justify-end">
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value)}
+              className="select select-bordered bg-base-100 border-primary text-text w-1/2 md:w-auto"
+            >
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="select select-bordered bg-base-100 border-primary text-text w-1/2 md:w-auto"
+            >
+              <option value="All">All</option>
+              <option value="Lost">Lost</option>
+              <option value="Found">Found</option>
+            </select>
           </div>
         </div>
 
@@ -104,7 +141,7 @@ const LostAndFoundItem = () => {
             ))
           ) : (
             <p className="text-center col-span-full text-text text-lg mt-6">
-              No posts found for your search.
+              No posts found.
             </p>
           )}
         </div>

@@ -27,9 +27,13 @@ const Home = () => {
           <RecentItem promise={promise} />
         </Suspense>
 
-        <SuccessPage />
-
-        <FAQ />
+        <div id="successStories">
+          {" "}
+          <SuccessPage />
+        </div>
+        <div id="faq">
+          <FAQ />
+        </div>
       </main>
     </>
   );

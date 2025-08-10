@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
 import { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthContest";
@@ -130,17 +130,19 @@ const Navbar = () => {
             {user ? (
               <>
                 {/* Avatar */}
-                <div
-                  className="avatar tooltip tooltip-bottom"
-                  data-tip={user.displayName}
-                >
-                  <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img
-                      src={user.photoURL || "/default-avatar.png"}
-                      alt="User"
-                    />
+                <Link to="/myProfile">
+                  <div
+                    className="avatar tooltip tooltip-bottom"
+                    data-tip={user.displayName}
+                  >
+                    <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      <img
+                        src={user.photoURL || "/default-avatar.png"}
+                        alt="User"
+                      />
+                    </div>
                   </div>
-                </div>
+                </Link>
                 {/* Logout */}
                 <button
                   onClick={handleLogOut}

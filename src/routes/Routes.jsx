@@ -14,6 +14,7 @@ import NotFound from "../pages/NotFound";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 import StatsPage from "../pages/dashboard/StatsPage";
 import AboutUs from "../pages/AboutUs";
+import MyProfile from "../pages/Myprofile";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "aboutUs",
         element: <AboutUs/>
+      },
+      {
+        path:"myProfile",
+        element:<PrivateRoutes><MyProfile/></PrivateRoutes>
       },
       {
         path: "postDetails/:id",

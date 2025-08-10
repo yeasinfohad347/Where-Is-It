@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -31,7 +32,7 @@ const Footer = () => {
                 <a href="#" className="hover:text-primary transition">Success Stories</a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition">Lost & Found</a>
+                <Link to="allItems" className="hover:text-primary transition">Lost & Found</Link>
               </li>
               <li>
                 <a href="#" className="hover:text-primary transition">FAQ</a>
@@ -43,10 +44,10 @@ const Footer = () => {
             <h3 className="tracking-wide uppercase text-primary">Company</h3>
             <ul className="space-y-1 ">
               <li>
-                <a href="#" className="hover:text-primary transition">Privacy</a>
+                <Link to="aboutUs" className="hover:text-primary transition">Privacy</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition">Terms of Service</a>
+                <Link to="aboutUs" className="hover:text-primary transition">Terms of Service</Link>
               </li>
             </ul>
           </div>
@@ -61,14 +62,14 @@ const Footer = () => {
                 <a href="#" className="hover:text-primary transition">Docs</a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition">GitHub</a>
+                <a href="https://github.com/yeasinfohad347" className="hover:text-primary transition">GitHub</a>
               </li>
             </ul>
           </div>
 
           <div className="space-y-3">
             <div className="uppercase text-primary">Social media</div>
-            <div className="flex justify-start space-x-3 text-secondary">
+            <div className="flex justify-start space-x-3 ">
               <a
                 href="https://facebook.com"
                 target="_blank"
