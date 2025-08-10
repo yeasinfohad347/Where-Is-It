@@ -7,7 +7,7 @@ import FAQ from "./FAQ";
 import SuccessPage from "./SuccessPage";
 import { Helmet } from "react-helmet-async";
 
-const promise = fetch("http://localhost:3000/allPost").then((res) =>
+const promise = fetch("https://where-is-it-server-topaz.vercel.app/allPost").then((res) =>
   res.json()
 );
 

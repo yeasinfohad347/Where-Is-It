@@ -16,7 +16,7 @@ const UpdateItem = () => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allPost/${id}`)
+    fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setItem(data);
@@ -55,7 +55,7 @@ const UpdateItem = () => {
       },
     };
 
-    fetch(`http://localhost:3000/allPost/${id}`, {
+    fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

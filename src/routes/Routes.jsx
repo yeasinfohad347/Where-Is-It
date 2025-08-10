@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: "postDetails/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/allPost/${params.id}`, {
+          fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${params.id}`, {
             credentials: "include",
           }),
         element: <PostDetails />,

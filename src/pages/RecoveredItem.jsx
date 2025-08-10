@@ -14,7 +14,7 @@ const RecoveredItem = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get("http://localhost:3000/recovered",{
+        .get("https://where-is-it-server-topaz.vercel.app/recovered",{
           withCredentials:true
         })
         .then((res) => {

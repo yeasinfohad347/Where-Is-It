@@ -11,7 +11,7 @@ const SuccessPage = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch("http://localhost:3000/success-stories")
+    fetch("https://where-is-it-server-topaz.vercel.app/success-stories")
       .then((res) => res.json())
       .then((data) => setStories(data))
       .catch((err) => console.error(err));
@@ -30,7 +30,7 @@ const SuccessPage = () => {
       userEmail: user?.email || "N/A",
     };
 
-    fetch("http://localhost:3000/success-stories", {
+    fetch("https://where-is-it-server-topaz.vercel.app/success-stories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newStory),
@@ -38,7 +38,7 @@ const SuccessPage = () => {
       .then(() => {
         toast.success("Thank you for sharing your story!");
         return fetch(
-          "http://localhost:3000/success-stories"
+          "https://where-is-it-server-topaz.vercel.app/success-stories"
         );
       })
       .then((res) => res.json())

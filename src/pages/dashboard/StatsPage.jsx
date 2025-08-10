@@ -11,19 +11,19 @@ const StatsPage = () => {
   // Fetch data on mount
   useEffect(() => {
     // Fetch all items
-    fetch("http://localhost:3000/allPost")
+    fetch("https://where-is-it-server-topaz.vercel.app/allPost")
       .then((res) => res.json())
       .then((data) => setAllItems(data))
       .catch((err) => console.error(err));
 
     // Fetch recovered items
-    fetch("http://localhost:3000/success-stories")
+    fetch("https://where-is-it-server-topaz.vercel.app/success-stories")
       .then((res) => res.json())
       .then((data) => setRecoveredItems(data))
       .catch((err) => console.error(err));
 
     // Fetch all users
-    fetch("http://localhost:3000/users")
+    fetch("https://where-is-it-server-topaz.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error(err));

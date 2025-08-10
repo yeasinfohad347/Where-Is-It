@@ -37,7 +37,7 @@ const AddLostAndFoundItem = () => {
     };
 
     axios
-      .post("http://localhost:3000/allPost", newPost, {
+      .post("https://where-is-it-server-topaz.vercel.app/allPost", newPost, {
         withCredentials: true,
       })
       .then(() => {

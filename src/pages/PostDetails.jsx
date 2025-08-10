@@ -39,9 +39,9 @@ const PostDetails = () => {
     };
 
     axios
-      .post("http://localhost:3000/recoveredItems", recoveryData)
+      .post("https://where-is-it-server-topaz.vercel.app/recoveredItems", recoveryData)
       .then(() =>
-        axios.patch(`http://localhost:3000/allPost/${item._id}`, {
+        axios.patch(`https://where-is-it-server-topaz.vercel.app/allPost/${item._id}`, {
           recovered: true,
           recoveredLocation,
           name: user.displayName,

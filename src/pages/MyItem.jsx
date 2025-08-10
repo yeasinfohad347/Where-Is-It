@@ -13,7 +13,7 @@ const MyItem = () => {
   useEffect(() => {
     setLoading(true)
     if (user?.email) {
-      fetch(`http://localhost:3000/myPost?email=${user.email}`,{
+      fetch(`https://where-is-it-server-topaz.vercel.app/myPost?email=${user.email}`,{
         credentials:'include'
       })
         .then((res) => res.json())
@@ -34,7 +34,7 @@ const MyItem = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/allPost/${id}`, {
+        fetch(`https://where-is-it-server-topaz.vercel.app/allPost/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
